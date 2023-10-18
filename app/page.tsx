@@ -106,7 +106,7 @@ export default function Home () {
       <div className='text-white bg-[#24232C] p-[16px] flex justify-between w-full text-[24px] items-center'>
         <p>{password}</p>
         <div className='text-neon hover:text-white cursor-pointer flex gap-x-4 items-center'>
-          {copied ? <p>COPIED</p> : null}
+          {copied ? <p className='text-[18px]'>COPIED</p> : null}
           <CopyIcon onClick={() => copyToClipboard()} />
         </div>
       </div>
