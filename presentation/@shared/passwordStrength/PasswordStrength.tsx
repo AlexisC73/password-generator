@@ -1,10 +1,6 @@
 import { ColoredBar } from './coloredBar/coloredBar'
 
-export const PasswordStrength = ({
-  strength
-}: {
-  strength: 0 | 1 | 2 | 3 | 4
-}) => {
+export const PasswordStrength = ({ strength }: { strength: number }) => {
   const color =
     strength === 1
       ? 'red'

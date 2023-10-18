@@ -28,6 +28,7 @@ export default function Home () {
   const [options, setOptions] = useState<Options>(OPTIONS)
   const [passwordLength, setPasswordLength] = useState<number>(10)
   const [password, setPassword] = useState<string>('')
+  const [passwordStrength, setPasswordStrength] = useState<number>(0)
   const [copied, setCopied] = useState<boolean>(false)
 
   const [possibleLetters, setPossibleLetters] = useState<string>(
@@ -61,6 +62,9 @@ export default function Home () {
   useEffect(() => {
     updatePossibleLetters()
   }, [options])
+  useEffect(() => {
+    calculatePasswordStrength()
+  }, [password])
 
   useEffect(() => {
     updatePossibleLetters()
@@ -75,6 +79,23 @@ export default function Home () {
       password.push(possibleLetters[randomIndex])
     }
     setPassword(password.join(''))
+  }
+
+  const calculatePasswordStrength = () => {
+    const hasUppercase = /[A-Z]/.test(password)
+    const hasLowercase = /[a-z]/.test(password)
+    const hasNumbers = /\d/.test(password)
+    const hasSymbols = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password)
+    const complexity =
+      (hasUppercase ? 1 : 0) +
+      (hasLowercase ? 1 : 0) +
+      (hasNumbers ? 1 : 0) +
+      (hasSymbols ? 1 : 0)
+
+    const strength = Math.floor(
+      (passwordLength * complexity) / (20 - passwordLength)
+    )
+    setPasswordStrength(Math.floor(strength))
   }
 
   return (
@@ -119,7 +140,7 @@ export default function Home () {
           />
         </ul>
 
-        <PasswordStrength strength={3} />
+        <PasswordStrength strength={passwordStrength} />
         <button
           className='flex text-[#24232C] font-bold text-[16px] items-center gap-x-4 bg-neon w-full h-[65px] justify-center'
           onClick={() => generatePassword()}
