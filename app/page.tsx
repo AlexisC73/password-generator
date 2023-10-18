@@ -12,6 +12,8 @@ interface Options {
   symbols: boolean
 }
 
+const PASSWORD_MIN_FOR_STRONG = 14 //Amount of characters needed at least to be considered strong
+
 const OPTIONS: Options = {
   uppercase: true,
   lowercase: true,
@@ -26,7 +28,7 @@ const SYMBOLS = '!@#$%^&*()_+-=[]{}|;:,./<>?'
 
 export default function Home () {
   const [options, setOptions] = useState<Options>(OPTIONS)
-  const [passwordLength, setPasswordLength] = useState<number>(10)
+  const [passwordLength, setPasswordLength] = useState<number>(14)
   const [password, setPassword] = useState<string>('')
   const [passwordStrength, setPasswordStrength] = useState<number>(0)
   const [copied, setCopied] = useState<boolean>(false)
@@ -93,9 +95,9 @@ export default function Home () {
       (hasSymbols ? 1 : 0)
 
     const strength = Math.floor(
-      (passwordLength * complexity) / (20 - passwordLength)
+      (passwordLength * complexity) / PASSWORD_MIN_FOR_STRONG
     )
-    setPasswordStrength(Math.floor(strength))
+    setPasswordStrength(strength)
   }
 
   return (
