@@ -65,12 +65,12 @@ export default function Home () {
     setPossibleLetters(possibleLetters)
   }
 
-  const updateProgressFillWidth = () => {
+  const updateProgressFillWidth = useCallback(() => {
     if (!progressBar.current || !inputProgress.current) return
     const progressTotalWidth = inputProgress.current.clientWidth - 28
     const barWidth = (progressTotalWidth / 20) * (20 - passwordLength) + 27
     progressBar.current.setAttribute('style', `right: ${barWidth}px;`)
-  }
+  }, [passwordLength, progressBar, inputProgress])
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(password)
@@ -85,10 +85,6 @@ export default function Home () {
   }, [password])
 
   useEffect(() => {
-    updateProgressFillWidth()
-  }, [passwordLength])
-
-  useEffect(() => {
     updatePossibleLetters()
     generatePassword()
   }, [])
@@ -99,7 +95,7 @@ export default function Home () {
     return () => {
       window.removeEventListener('resize', updateProgressFillWidth)
     }
-  }, [])
+  }, [passwordLength])
 
   const generatePassword = () => {
     setCopied(false)
