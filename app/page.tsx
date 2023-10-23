@@ -2,7 +2,13 @@
 
 import { ArrowRightIcon, CopyIcon } from '@/presentation/@shared/icons'
 import { Checkbox } from '@/presentation/@shared/checkbox/Checkbox'
-import { useCallback, useEffect, useLayoutEffect, useState } from 'react'
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState
+} from 'react'
 import { PasswordStrength } from '@/presentation/@shared/passwordStrength/PasswordStrength'
 
 interface Options {
@@ -33,10 +39,8 @@ export default function Home () {
   const [passwordStrength, setPasswordStrength] = useState<number>(0)
   const [copied, setCopied] = useState<boolean>(false)
 
-  const progressBar = document.querySelector('.progressBar') as HTMLDivElement
-  const inputProgress = document.querySelector(
-    '.customInput'
-  ) as HTMLInputElement
+  const progressBar = useRef<HTMLDivElement>(null)
+  const inputProgress = useRef<HTMLInputElement>(null)
 
   const [possibleLetters, setPossibleLetters] = useState<string>(
     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
@@ -62,10 +66,10 @@ export default function Home () {
   }
 
   const updateProgressFillWidth = () => {
-    if (!progressBar || !inputProgress) return
-    const progressTotalWidth = inputProgress.clientWidth - 28
+    if (!progressBar.current || !inputProgress.current) return
+    const progressTotalWidth = inputProgress.current.clientWidth - 28
     const barWidth = (progressTotalWidth / 20) * (20 - passwordLength) + 27
-    progressBar.setAttribute('style', `right: ${barWidth}px;`)
+    progressBar.current.setAttribute('style', `right: ${barWidth}px;`)
   }
 
   const copyToClipboard = () => {
@@ -95,7 +99,7 @@ export default function Home () {
     return () => {
       window.removeEventListener('resize', updateProgressFillWidth)
     }
-  })
+  }, [])
 
   const generatePassword = () => {
     setCopied(false)
@@ -141,10 +145,11 @@ export default function Home () {
             <p className='text-neon font-bold text-[32px]'>{passwordLength}</p>
           </div>
           <div className='field pb-4'>
-            <div className='progressBar'></div>
+            <div className='progressBar' ref={progressBar}></div>
 
             <input
               className='customInput'
+              ref={inputProgress}
               type='range'
               min={0}
               max={20}
