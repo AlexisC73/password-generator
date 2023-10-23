@@ -2,7 +2,7 @@
 
 import { ArrowRightIcon, CopyIcon } from '@/presentation/@shared/icons'
 import { Checkbox } from '@/presentation/@shared/checkbox/Checkbox'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useState } from 'react'
 import { PasswordStrength } from '@/presentation/@shared/passwordStrength/PasswordStrength'
 
 interface Options {
@@ -33,6 +33,11 @@ export default function Home () {
   const [passwordStrength, setPasswordStrength] = useState<number>(0)
   const [copied, setCopied] = useState<boolean>(false)
 
+  const progressBar = document.querySelector('.progressBar') as HTMLDivElement
+  const inputProgress = document.querySelector(
+    '.customInput'
+  ) as HTMLInputElement
+
   const [possibleLetters, setPossibleLetters] = useState<string>(
     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
   )
@@ -56,6 +61,13 @@ export default function Home () {
     setPossibleLetters(possibleLetters)
   }
 
+  const updateProgressFillWidth = () => {
+    if (!progressBar || !inputProgress) return
+    const progressTotalWidth = inputProgress.clientWidth - 28
+    const barWidth = (progressTotalWidth / 20) * (20 - passwordLength) + 27
+    progressBar.setAttribute('style', `right: ${barWidth}px;`)
+  }
+
   const copyToClipboard = () => {
     navigator.clipboard.writeText(password)
     setCopied(true)
@@ -69,9 +81,21 @@ export default function Home () {
   }, [password])
 
   useEffect(() => {
+    updateProgressFillWidth()
+  }, [passwordLength])
+
+  useEffect(() => {
     updatePossibleLetters()
     generatePassword()
   }, [])
+
+  useLayoutEffect(() => {
+    updateProgressFillWidth()
+    window.addEventListener('resize', updateProgressFillWidth)
+    return () => {
+      window.removeEventListener('resize', updateProgressFillWidth)
+    }
+  })
 
   const generatePassword = () => {
     setCopied(false)
@@ -116,7 +140,20 @@ export default function Home () {
             <p className='font-bold text-[18px]'>Character Length</p>
             <p className='text-neon font-bold text-[32px]'>{passwordLength}</p>
           </div>
-          <div className='h-2 w-full bg-[#18171F]'></div>
+          <div className='field pb-4'>
+            <div className='progressBar'></div>
+
+            <input
+              className='customInput'
+              type='range'
+              min={0}
+              max={20}
+              defaultValue={passwordLength}
+              onChange={e => {
+                setPasswordLength(Number(e.target.value))
+              }}
+            />
+          </div>
         </div>
 
         <ul className='flex flex-col gap-y-4 self-start mb-4'>

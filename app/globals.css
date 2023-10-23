@@ -5,3 +5,43 @@
 body {
   background-color: #08070b;
 }
+
+.customInput {
+  background-color: red;
+}
+
+.customInput {
+  position: absolute;
+  top: 17px;
+  appearance: none;
+  height: 8px;
+  background-color: #18171f;
+  width: 100%;
+}
+
+.customInput::-webkit-slider-thumb {
+  appearance: none;
+  background-color: #979797;
+  height: 28px;
+  width: 28px;
+  border-radius: 50%;
+  z-index: 2;
+}
+.customInput::-webkit-slider-thumb:hover {
+  position: relative;
+  background-color: #18171f;
+  border: 2px solid #a4ffaf;
+}
+
+.field {
+  position: relative;
+}
+
+.progressBar {
+  position: absolute;
+  z-index: 1;
+  top: 17px;
+  height: 8px;
+  left: 0px;
+  background-color: #a4ffaf;
+}
