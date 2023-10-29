@@ -125,7 +125,7 @@ export default function Home () {
   }
 
   return (
-    <main className='flex min-h-screen flex-col items-center justify-center gap-y-[14px] md:gap-y-[27px] p-[16px] md:p-0 md:w-[540px] mx-auto md:-mt-[30px] lg:mt-[20px]'>
+    <main className='flex min-h-screen flex-col items-center justify-center gap-y-[14px] md:gap-y-[27px] p-[16px] md:p-0 md:w-[540px] mx-auto'>
       <h1 className='text-[#817D92] text-[16px] md:text-[24px] font-bold'>
         Password Generator
       </h1>
