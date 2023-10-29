@@ -80,6 +80,7 @@ export default function Home () {
   useEffect(() => {
     updatePossibleLetters()
   }, [options])
+
   useEffect(() => {
     calculatePasswordStrength()
   }, [password])
@@ -116,7 +117,11 @@ export default function Home () {
     const strength = Math.floor(
       (passwordLength * complexity) / PASSWORD_MIN_FOR_STRONG
     )
-    setPasswordStrength(strength)
+    if (password.length <= 0) {
+      setPasswordStrength(0)
+      return
+    }
+    setPasswordStrength(Math.max(strength, 1))
   }
 
   return (
