@@ -42,9 +42,7 @@ export default function Home () {
   const progressBar = useRef<HTMLDivElement>(null)
   const inputProgress = useRef<HTMLInputElement>(null)
 
-  const [possibleLetters, setPossibleLetters] = useState<string>(
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-  )
+  const [possibleLetters, setPossibleLetters] = useState<string>('')
   const toggleOption = useCallback(
     (option: keyof Options) => {
       const newOptions = { ...options }

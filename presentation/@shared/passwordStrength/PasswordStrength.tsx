@@ -26,7 +26,7 @@ export const PasswordStrength = ({ strength }: { strength: number }) => {
         STRENGTH
       </p>
       <div className='flex gap-x-4 items-center'>
-        <p className='text-[18px] md:text-[24px] font-bold text-[#E6E5EA]'>
+        <p className='text-[18px] min-h-[36px] md:text-[24px] font-bold text-[#E6E5EA]'>
           {strengthText}
         </p>
         <div className='flex gap-x-2'>
