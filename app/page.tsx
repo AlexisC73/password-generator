@@ -197,7 +197,7 @@ export default function Home () {
               className='flex text-[#24232C] hover:text-neon border-neon border-2 hover:bg-[#24232C] items-center gap-x-4 bg-neon w-full h-[56px] md:h-[65px] justify-center'
               onClick={() => generatePassword()}
             >
-              <p className='font-bold text-base md:text-lg'>GENERATE</p>
+              <span className='font-bold text-base md:text-lg'>GENERATE</span>
               <ArrowRightIcon className='text-[16px]' />
             </button>
           </div>
