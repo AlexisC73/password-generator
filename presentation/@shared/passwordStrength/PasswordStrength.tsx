@@ -10,13 +10,15 @@ export const PasswordStrength = ({ strength }: { strength: number }) => {
       ? 'yellow'
       : 'green'
   const strengthText =
-    strength === 2
+    strength === 1
+      ? 'TOO WEAK!'
+      : strength === 2
       ? 'WEAK'
       : strength === 3
       ? 'MEDIUM'
       : strength >= 4
       ? 'STRONG'
-      : 'TOO WEAK!'
+      : ''
 
   return (
     <div className='flex justify-between w-full bg-[#18171F] px-[16px] md:px-8 py-[14px] md:py-[20px] items-center'>
