@@ -34,7 +34,7 @@ const SYMBOLS = '!@#$%^&*()_+-=[]{}|;:,./<>?'
 
 export default function Home () {
   const [options, setOptions] = useState<Options>(OPTIONS)
-  const [passwordLength, setPasswordLength] = useState<number>(10)
+  const [passwordLength, setPasswordLength] = useState<number>(0)
   const [password, setPassword] = useState<string>('')
   const [passwordStrength, setPasswordStrength] = useState<number>(0)
   const [copied, setCopied] = useState<boolean>(false)
