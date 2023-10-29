@@ -4,6 +4,7 @@
 
 body {
   background-color: #08070b;
+  overflow: hidden;
 }
 
 .customInput {
