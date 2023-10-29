@@ -141,9 +141,12 @@ export default function Home () {
 
         <div className='text-white bg-[#24232C] p-4 md:px-8 md:pt-[24px] flex flex-col justify-between w-full text-[24px] items-center'>
           <div className='flex justify-between w-full items-center'>
-            <p className='font-bold text-[16px] md:text-[18px] -mt-[5px]'>
+            <label
+              htmlFor='password-length'
+              className='font-bold text-[16px] md:text-[18px] -mt-[5px]'
+            >
               Character Length
-            </p>
+            </label>
             <p className='text-neon font-bold text-[24px] md:text-[32px] align-text-top'>
               {passwordLength}
             </p>
@@ -151,6 +154,8 @@ export default function Home () {
           <div className='w-full field relative h-[28px] md:mt-[10px]'>
             <div className='progressBar' ref={progressBar}></div>
             <input
+              id='password-length'
+              name='password-length'
               className='customInput'
               ref={inputProgress}
               type='range'
