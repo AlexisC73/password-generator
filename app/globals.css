@@ -12,7 +12,7 @@ body {
 
 .customInput {
   position: absolute;
-  top: 17px;
+  top: 13px;
   appearance: none;
   height: 8px;
   background-color: #18171f;
@@ -21,7 +21,7 @@ body {
 
 .customInput::-webkit-slider-thumb {
   appearance: none;
-  background-color: #979797;
+  background-color: #e6e5ea;
   height: 28px;
   width: 28px;
   border-radius: 50%;
@@ -33,14 +33,10 @@ body {
   border: 2px solid #a4ffaf;
 }
 
-.field {
-  position: relative;
-}
-
 .progressBar {
   position: absolute;
   z-index: 1;
-  top: 17px;
+  top: 13px;
   height: 8px;
   left: 0px;
   background-color: #a4ffaf;

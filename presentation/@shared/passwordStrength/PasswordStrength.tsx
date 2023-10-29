@@ -19,7 +19,7 @@ export const PasswordStrength = ({ strength }: { strength: number }) => {
       : 'TOO WEAK!'
 
   return (
-    <div className='flex justify-between w-full bg-[#18171F] px-[32px] py-[20px] items-center'>
+    <div className='flex justify-between w-full bg-[#18171F] px-[16px] py-[14px] items-center'>
       <p className='text-[#817D92] text-[16px] font-bold'>STRENGTH</p>
       <div className='flex gap-x-4 items-center'>
         <p className='text-[18px] font-bold text-[#E6E5EA]'>{strengthText}</p>

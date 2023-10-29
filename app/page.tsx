@@ -125,69 +125,80 @@ export default function Home () {
   }
 
   return (
-    <main className='flex min-h-screen flex-col items-center gap-y-4 justify-center p-[16px] max-w-[540px] mx-auto'>
-      <h1 className='text-[#817D92] font-bold'>Password Generator</h1>
-      <div className='text-white bg-[#24232C] p-[16px] flex justify-between w-full text-[24px] items-center'>
-        <p>{password}</p>
-        <div className='text-neon hover:text-white cursor-pointer flex gap-x-4 items-center'>
-          {copied ? <p className='text-[18px]'>COPIED</p> : null}
-          <CopyIcon onClick={() => copyToClipboard()} />
-        </div>
-      </div>
-      <div className='text-white bg-[#24232C] p-[16px] flex flex-col justify-between w-full text-[24px] items-center gap-y-4'>
-        <div className='w-full mb-4 gap-y-2'>
-          <div className='flex justify-between w-full items-center'>
-            <p className='font-bold text-[18px]'>Character Length</p>
-            <p className='text-neon font-bold text-[32px]'>{passwordLength}</p>
+    <main className='flex min-h-screen flex-col items-center gap-y-[14px] lg:gap-y-[24px] p-[16px] max-w-[540px] mx-auto mt-[47px]'>
+      <h1 className='text-[#817D92] text-[16px] font-bold'>
+        Password Generator
+      </h1>
+      <div className='flex flex-col w-full gap-y-4'>
+        <div className='bg-[#24232C] flex justify-between w-full text-[24px] items-center py-[12px] pt-[16px] px-[16px]'>
+          <p className='font-bold text-[#E6E5EA]'>{password}</p>
+          <div className='text-neon text-[20px] hover:text-white cursor-pointer flex gap-x-4 items-center'>
+            {copied ? <p className='text-[18px]'>COPIED</p> : null}
+            <CopyIcon onClick={() => copyToClipboard()} />
           </div>
-          <div className='field pb-4'>
-            <div className='progressBar' ref={progressBar}></div>
+        </div>
 
-            <input
-              className='customInput'
-              ref={inputProgress}
-              type='range'
-              min={0}
-              max={20}
-              defaultValue={passwordLength}
-              onChange={e => {
-                setPasswordLength(Number(e.target.value))
-              }}
+        <div className='text-white bg-[#24232C] p-[16px] flex flex-col justify-between w-full text-[24px] items-center'>
+          <div className='w-full mb-8'>
+            <div className='flex justify-between w-full items-center'>
+              <p className='font-bold text-[16px] -mt-[5px]'>
+                Character Length
+              </p>
+              <p className='text-neon font-bold text-[24px] align-text-top'>
+                {passwordLength}
+              </p>
+            </div>
+            <div className='field relative pb-[30px]'>
+              <div className='progressBar' ref={progressBar}></div>
+
+              <input
+                className='customInput'
+                ref={inputProgress}
+                type='range'
+                min={0}
+                max={20}
+                defaultValue={passwordLength}
+                onChange={e => {
+                  setPasswordLength(Number(e.target.value))
+                }}
+              />
+            </div>
+          </div>
+
+          <ul className='flex flex-col gap-y-4 self-start'>
+            <OptionsGroup
+              activated={options.uppercase}
+              label='Include Uppercase Letters'
+              onClickAction={() => toggleOption('uppercase')}
             />
+            <OptionsGroup
+              activated={options.lowercase}
+              label='Include Lowercase Letters'
+              onClickAction={() => toggleOption('lowercase')}
+            />
+            <OptionsGroup
+              activated={options.numbers}
+              label='Include Numbers'
+              onClickAction={() => toggleOption('numbers')}
+            />
+            <OptionsGroup
+              activated={options.symbols}
+              label='Include Symbols'
+              onClickAction={() => toggleOption('symbols')}
+            />
+          </ul>
+
+          <div className='w-full flex flex-col gap-y-4 pt-[34px]'>
+            <PasswordStrength strength={passwordStrength} />
+            <button
+              className='flex text-[#24232C] font-bold text-[16px] items-center gap-x-4 bg-neon w-full h-[56px] justify-center'
+              onClick={() => generatePassword()}
+            >
+              <p>GENERATE</p>
+              <ArrowRightIcon className='-mt-[2px]' />
+            </button>
           </div>
         </div>
-
-        <ul className='flex flex-col gap-y-4 self-start mb-4'>
-          <OptionsGroup
-            activated={options.uppercase}
-            label='Include Uppercase Letters'
-            onClickAction={() => toggleOption('uppercase')}
-          />
-          <OptionsGroup
-            activated={options.lowercase}
-            label='Include Lowercase Letters'
-            onClickAction={() => toggleOption('lowercase')}
-          />
-          <OptionsGroup
-            activated={options.numbers}
-            label='Include Numbers'
-            onClickAction={() => toggleOption('numbers')}
-          />
-          <OptionsGroup
-            activated={options.symbols}
-            label='Include Symbols'
-            onClickAction={() => toggleOption('symbols')}
-          />
-        </ul>
-
-        <PasswordStrength strength={passwordStrength} />
-        <button
-          className='flex text-[#24232C] font-bold text-[16px] items-center gap-x-4 bg-neon w-full h-[65px] justify-center'
-          onClick={() => generatePassword()}
-        >
-          <p>GENERATE</p>
-          <ArrowRightIcon className='-mt-[2px]' />
-        </button>
       </div>
     </main>
   )
@@ -200,7 +211,7 @@ type OptionProps = {
 }
 const OptionsGroup = ({ label, activated, onClickAction }: OptionProps) => {
   return (
-    <li className='flex self-start items-center gap-x-5'>
+    <li className='flex self-start items-center h-[21px] gap-x-5'>
       <div onClick={onClickAction} className='cursor-pointer'>
         <Checkbox checked={activated} />
       </div>
