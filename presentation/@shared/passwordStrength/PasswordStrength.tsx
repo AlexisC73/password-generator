@@ -19,10 +19,14 @@ export const PasswordStrength = ({ strength }: { strength: number }) => {
       : 'TOO WEAK!'
 
   return (
-    <div className='flex justify-between w-full bg-[#18171F] px-[16px] py-[14px] items-center'>
-      <p className='text-[#817D92] text-[16px] font-bold'>STRENGTH</p>
+    <div className='flex justify-between w-full bg-[#18171F] px-[16px] md:px-8 py-[14px] md:py-[20px] items-center'>
+      <p className='text-[#817D92] text-[16px] md:text-[18px] font-bold'>
+        STRENGTH
+      </p>
       <div className='flex gap-x-4 items-center'>
-        <p className='text-[18px] font-bold text-[#E6E5EA]'>{strengthText}</p>
+        <p className='text-[18px] md:text-[24px] font-bold text-[#E6E5EA]'>
+          {strengthText}
+        </p>
         <div className='flex gap-x-2'>
           {[...Array(Math.min(strength, 4))].map((_, index) => (
             <ColoredBar key={index} color={color} />
