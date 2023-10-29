@@ -21,10 +21,10 @@ interface Options {
 const PASSWORD_MIN_FOR_STRONG = 14 //Amount of characters needed at least to be considered strong
 
 const OPTIONS: Options = {
-  uppercase: true,
-  lowercase: true,
-  numbers: true,
-  symbols: true
+  uppercase: false,
+  lowercase: false,
+  numbers: false,
+  symbols: false
 }
 
 const UPPERCASE_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -84,11 +84,6 @@ export default function Home () {
     calculatePasswordStrength()
   }, [password])
 
-  useEffect(() => {
-    updatePossibleLetters()
-    generatePassword()
-  }, [])
-
   useLayoutEffect(() => {
     updateProgressFillWidth()
     window.addEventListener('resize', updateProgressFillWidth)
@@ -131,8 +126,12 @@ export default function Home () {
       </h1>
       <div className='flex flex-col w-full gap-y-4 md:gap-y-[24px]'>
         <div className='bg-[#24232C] flex justify-between w-full items-center h-[64px] md:h-[80px]'>
-          <p className='font-bold text-[#E6E5EA] text-[24px] md:text-[32px] pl-4 md:pl-8 mt-[1px]'>
-            {password}
+          <p
+            className={`font-bold text-[24px] text-[#E6E5EA] md:text-[32px] pl-4 md:pl-8 mt-[1px] ${
+              password.length <= 0 ? 'opacity-25' : 'opacity-100'
+            }`}
+          >
+            {password || 'P4$5W0rD!'}
           </p>
           <div className='text-neon text-[20px] md:text-[24px] pr-[14px] md:pr-[32px] hover:text-white cursor-pointer flex gap-x-4 items-center '>
             {copied ? <p className='text-[18px]'>COPIED</p> : null}
@@ -190,7 +189,7 @@ export default function Home () {
           <div className='w-full flex flex-col gap-y-4 md:gap-y-8 pt-[30px] md:pt-[32px] md:pb-[16px]'>
             <PasswordStrength strength={passwordStrength} />
             <button
-              className='flex text-[#24232C] items-center gap-x-4 bg-neon w-full h-[56px] md:h-[65px] justify-center'
+              className='flex text-[#24232C] hover:text-neon border-neon border-2 hover:bg-[#24232C] items-center gap-x-4 bg-neon w-full h-[56px] md:h-[65px] justify-center'
               onClick={() => generatePassword()}
             >
               <p className='font-bold text-base md:text-lg'>GENERATE</p>
